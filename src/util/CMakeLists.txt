@@ -4,7 +4,7 @@ add_library(util OBJECT)
 set_target_properties(util PROPERTIES C_STANDARD 90)
 
 set(UTIL_INCLUDES
-	"${CMAKE_BINARY_DIR}/src"
+	"${PROJECT_BINARY_DIR}/src"
 	"${libgit2_SOURCE_DIR}/src/util"
 	"${libgit2_SOURCE_DIR}/include")
 

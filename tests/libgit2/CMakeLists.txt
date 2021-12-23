@@ -8,8 +8,8 @@ if(NOT PYTHONINTERP_FOUND)
 	                     "Make sure python is available, or pass -DBUILD_TESTS=OFF to skip building the tests")
 ENDIF()
 
-set(CLAR_PATH "${CMAKE_SOURCE_DIR}/tests/clar")
-set(CLAR_FIXTURES "${CMAKE_SOURCE_DIR}/tests/resources/")
+set(CLAR_PATH "${PROJECT_SOURCE_DIR}/tests/clar")
+set(CLAR_FIXTURES "${PROJECT_SOURCE_DIR}/tests/resources/")
 set(TEST_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 add_definitions(-DCLAR_FIXTURE_PATH=\"${CLAR_FIXTURES}\")
 add_definitions(-DCLAR_TMPDIR=\"libgit2_tests\")
@@ -41,7 +41,7 @@ set_source_files_properties(
 add_executable(libgit2_tests ${SRC_CLAR} ${SRC_TEST} ${LIBGIT2_OBJECTS})
 
 set_target_properties(libgit2_tests PROPERTIES C_STANDARD 90)
-set_target_properties(libgit2_tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set_target_properties(libgit2_tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
 target_include_directories(libgit2_tests PRIVATE ${TEST_INCLUDES} ${LIBGIT2_INCLUDES} ${LIBGIT2_DEPENDENCY_INCLUDES})
 target_include_directories(libgit2_tests SYSTEM PRIVATE ${LIBGIT2_SYSTEM_INCLUDES})

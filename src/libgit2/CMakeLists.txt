@@ -7,10 +7,10 @@ set_target_properties(libgit2 PROPERTIES C_STANDARD 90)
 include(PkgBuildConfig)
 
 set(LIBGIT2_INCLUDES
-	"${CMAKE_BINARY_DIR}/src"
-	"${CMAKE_SOURCE_DIR}/src/libgit2"
-	"${CMAKE_SOURCE_DIR}/src/util"
-	"${CMAKE_SOURCE_DIR}/include")
+	"${PROJECT_BINARY_DIR}/src"
+	"${PROJECT_SOURCE_DIR}/src/libgit2"
+	"${PROJECT_SOURCE_DIR}/src/util"
+	"${PROJECT_SOURCE_DIR}/include")
 
 if(WIN32 AND EMBED_SSH_PATH)
 	file(GLOB SRC_SSH "${EMBED_SSH_PATH}/src/*.c")
@@ -24,9 +24,9 @@ endif()
 
 # Collect sourcefiles
 file(GLOB SRC_H
-	"${CMAKE_SOURCE_DIR}/include/git2.h"
-	"${CMAKE_SOURCE_DIR}/include/git2/*.h"
-	"${CMAKE_SOURCE_DIR}/include/git2/sys/*.h")
+	"${PROJECT_SOURCE_DIR}/include/git2.h"
+	"${PROJECT_SOURCE_DIR}/include/git2/*.h"
+	"${PROJECT_SOURCE_DIR}/include/git2/sys/*.h")
 list(SORT SRC_H)
 target_sources(libgit2 PRIVATE ${SRC_H})
 
@@ -57,7 +57,7 @@ endif()
 ide_split_sources(libgit2)
 list(APPEND LIBGIT2_OBJECTS $<TARGET_OBJECTS:util> $<TARGET_OBJECTS:libgit2> ${LIBGIT2_DEPENDENCY_OBJECTS})
 
-target_include_directories(libgit2 PRIVATE ${LIBGIT2_INCLUDES} ${LIBGIT2_DEPENDENCY_INCLUDES} PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(libgit2 PRIVATE ${LIBGIT2_INCLUDES} ${LIBGIT2_DEPENDENCY_INCLUDES} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_include_directories(libgit2 SYSTEM PRIVATE ${LIBGIT2_SYSTEM_INCLUDES})
 
 set(LIBGIT2_INCLUDES ${LIBGIT2_INCLUDES} PARENT_SCOPE)
@@ -75,9 +75,9 @@ add_library(libgit2package ${SRC_RC} ${LIBGIT2_OBJECTS})
 target_link_libraries(libgit2package ${LIBGIT2_SYSTEM_LIBS})
 
 set_target_properties(libgit2package PROPERTIES C_STANDARD 90)
-set_target_properties(libgit2package PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set_target_properties(libgit2package PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set_target_properties(libgit2package PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set_target_properties(libgit2package PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+set_target_properties(libgit2package PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+set_target_properties(libgit2package PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
 # Workaround for Cmake bug #0011240 (see http://public.kitware.com/Bug/view.php?id=11240)
 # Win64+MSVC+static libs = linker error
@@ -116,5 +116,5 @@ install(TARGETS libgit2package
 	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/git2 DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(FILES ${CMAKE_SOURCE_DIR}/include/git2.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/git2 DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${PROJECT_SOURCE_DIR}/include/git2.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
