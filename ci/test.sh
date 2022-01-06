@@ -101,7 +101,7 @@ if [ -z "$SKIP_PROXY_TESTS" ]; then
 	java -jar poxyproxy.jar --address 127.0.0.1 --port 8090 --credentials foo:bar --auth-type ntlm --quiet &
 fi
 
-if [ -n "$SKIP_NEGOTIATE_TESTS" -o -n "$SKIP_ONLINE_TESTS" ]; then
+if [ -z "$SKIP_NEGOTIATE_TESTS" -o -z "$SKIP_ONLINE_TESTS" ]; then
 	curl --location --silent --show-error https://github.com/ethomson/poxygit/releases/download/v0.5.0/poxygit-0.5.0.jar >poxygit.jar
 
 	echo ""
