@@ -690,15 +690,6 @@ int git_remote__urlfordirection(
 	GIT_ASSERT_ARG(remote);
 	GIT_ASSERT_ARG(direction == GIT_DIRECTION_FETCH || direction == GIT_DIRECTION_PUSH);
 
-	if (callbacks && callbacks->remote_ready) {
-		int status = callbacks->remote_ready(remote, direction, callbacks->payload);
-
-		if (status != 0 && status != GIT_PASSTHROUGH) {
-			git_error_set_after_callback_function(status, "git_remote_ready_cb");
-			return status;
-		}
-	}
-
 	if (direction == GIT_DIRECTION_FETCH)
 		url = remote->url;
 	else if (direction == GIT_DIRECTION_PUSH)
